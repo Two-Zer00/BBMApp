@@ -1,0 +1,138 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-mar-2019, 8:00:24
+    Author     : twozer00
+*/
+
+/*Header styles*/
+ #warning{
+    border-radius: 2px;
+    border-bottom: 1px solid rgba(255,0,0,0.5);
+    text-align: justify;
+    padding: 10px 10px;
+    margin: auto;
+    width: 260px;
+    height: 50px;
+    background: rgba(255,0,0,0.2);
+    font-size: 12px;
+    color: red;
+    font-weight: normal;
+    margin-bottom: 20px;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
+ }
+.icon-times:before{
+    
+    float: right;
+ }
+ .icon-times:hover{
+     cursor: pointer;
+ }
+ 
+ /*WARNIGN EFFECTS*/
+ @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+ /*WARNIGN EFFECTS*/
+ 
+ .logo{
+     margin:auto;
+     margin-top: 50px;
+     margin-bottom: 50px;
+    /*position: relative;
+    left:40%;*/
+    width: 280px;
+ }
+ .logo img{
+     margin:auto;
+    width: 100%;
+    height: 100%;
+ }
+ .logo a{
+     text-decoration: none;
+     color:black;
+     font-family: arial;
+ }
+ /*LOGIN FORM STYLES*/
+ .loginF{
+     border-radius: 8px;
+    margin: auto;
+    background:#f2f2f2;
+    border: 1px solid rgb(9,79,164);
+    width: 280px;
+    box-shadow: 10px 10px 8px #888888;
+ }
+ .loginF form{
+     margin:auto;
+ }
+ 
+ .loginF p{
+     margin-left: 10%;
+     width: 80%;
+     height: 80%;
+ }
+ .loginF hr{
+     color: white;
+     width: 80%;
+ }
+ #title{
+    color:rgb(0,110,193);
+    font-size: 20px;
+ }
+ .loginF input{
+     font-size: 22px;
+     width: 95%;
+     margin:0;
+     padding:0;
+ }
+ .loginF input[type=text]:focus{
+     border-color:rgba(9,79,164,0.6);
+     border-radius: 3px;
+ }
+ .loginF input[type=password]:focus{
+     border-color:rgba(9,79,164,0.6);
+     border-radius: 3px;
+ }
+ .loginF input[type=submit]{
+    font-size: 14px;
+    width: 120px;
+    height: 40px;
+    border-radius: 9px;
+    color:white;
+    background: rgb(9,79,164);
+    border:none;
+ }
+ 
+
