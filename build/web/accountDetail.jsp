@@ -4,6 +4,7 @@
     Author     : Usuario
 --%>
 
+<%@page import="org.json.simple.JSONArray"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.models.isClient"%>
@@ -25,12 +26,14 @@
         <%
             JSONObject cl = (JSONObject) request.getSession().getAttribute("clientOb");
             isClient val = new isClient();
-            JSONObject acc1 = null;
+           JSONArray acc = null;
+           JSONObject acc1=null;
+          
             
             String[] params= {request.getQueryString()};
             Boolean up=false;
-            String acc="";
-            if(request.getQueryString()!=null){
+            
+            if(request.getQueryString()!=null && !params[0].contains("index")){
                 Map<String, String> map = new HashMap<String, String>();  
                 for (String param : params){  
                     String name = param.split("=")[0];  
@@ -38,27 +41,29 @@
                     map.put(name, value);
                 }
                
-                up=true;
+                //up=true;
                 pageContext.setAttribute("up", up);
-                acc1 = val.account("",map.get("anumber"));
+                acc = val.accounts("",map.get("anumber"));
+                acc1 = (JSONObject) acc.get(0);
                 
             }
             else{
-                acc1 =  val.account(cl.get("client_number").toString(), "");
+                
+                acc =  val.accounts(cl.get("client_number").toString(), "");
+                
+                for(int i=0;i<acc.size();i++){
+                    acc1=(JSONObject)acc.get(i);
+                    out.print("<section id=\"raForm\"><h2>Detalles de la cuenta "+acc1.get("account_number")+"</h2><form>");
+                    out.print("<p><label>Numero de cliente: </label><input type=\"text\" value="+acc1.get("client_number")+" disabled></p>");
+                    out.print("<p><label>Numero de cuenta </label><input type=\"text\" value="+acc1.get("account_number")+" disabled></p>");
+                    out.print("<p><label>Tipo: </label><input type=\"text\" value="+acc1.get("type")+" disabled></p>");
+                    out.print("<p><label>Monto: </label><input type=\"number\" name=\"amount\" value="+acc1.get("amount")+" disabled/></p>");
+                    out.print("<p><label>Fecha: </label><input type=\"date\" name=\"date\" value="+acc1.get("date")+" disabled /></p>");
+                    out.print("</form></section><hr style=\"width:50%;\">");
+                }
             }
             
-        %>
-        
-        <section id="raForm">
-            <h1>Detalles</h1>
-            <form action="rac.do" method="post">
-                <p><label>Numero de cliente: </label><input type="text" value="<%out.print(acc1.get("client_number"));  %>" disabled></p>
-            <p><label>Numero de cuenta: </label><input type="number" name="naccount" value="<%out.print(acc1.get("account_number"));  %>" disabled /></p>
-            <p><label>Tipo: </label><input type="text" value="<%out.print(acc1.get("type"));  %>" disabled></p>
-            <p><label>Monto: </label><input type="number" name="amount" value="<%out.print(acc1.get("amount"));  %>" disabled/></p>
-            <p><label>Fecha: </label><input type="date" name="date" value="<%out.print(acc1.get("date"));  %>" disabled /></p>
-            
-            </form>
-        </section>
+        %>        
+                    
     </body>
 </html>

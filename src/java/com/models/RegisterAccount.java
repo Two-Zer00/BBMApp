@@ -5,35 +5,23 @@
  */
 package com.models;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author twozer00
  */
-public class RegisterAccount {
+public class RegisterAccount extends jsonHandler {
     
     private RegisterClient rgc = new RegisterClient();
     private isClient val = new isClient();
     public void rac(accounts account){
         rgc = new RegisterClient();
-        try {
-            JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(new FileReader(isClient.path+"accounts.json"));
-            JSONArray jsonArray = (JSONArray)obj;
+        
+            JSONArray jsonArray = readFile(Mainpath+accP);
             
             System.out.println(jsonArray);
-            
-            
             
             JSONObject cl = new JSONObject();
             cl.put("account_number", account.getNaccount());
@@ -48,27 +36,13 @@ public class RegisterAccount {
             //jsonArray.
             
             System.out.println(jsonArray);
-            FileWriter file = new FileWriter(isClient.path+"accounts.json");
-            file.write(jsonArray.toJSONString());
-            file.flush();
-            file.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(RegisterAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RegisterAccount.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(RegisterAccount.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            writeFile(jsonArray,Mainpath+accP);
+    }
 
-    }
-    
     public void updateNclient(String naccount,String nclient){
-        JSONObject acc = val.account("",naccount);
+        JSONObject acc = (JSONObject)val.accounts("",naccount).get(0);
         //acc.replace("client_number", nclient);
-        
-        
-        
+       
     }
-    
     
 }

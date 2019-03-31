@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -86,7 +87,8 @@ public class trasferSv extends HttpServlet {
             throws ServletException, IOException {
         
         isClient val = new isClient();
-        JSONObject acc = val.account("", request.getParameter("acc1"));
+        JSONArray accts = val.accounts("", request.getParameter("acc1"));
+        JSONObject acc = (JSONObject) accts.get(0);
         if (Double.valueOf(acc.get("amount").toString()) > Double.valueOf(request.getParameter("amount"))){
             DateFormat d = new SimpleDateFormat("dd-MM-yyyy");
             JSONObject cl = (JSONObject)request.getSession().getAttribute("clientOb");

@@ -1,57 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.models;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-/**
- *
- * @author twozer00
- */
-public class ClientNumber {
+public class ClientNumber extends jsonHandler {
     
     private int validateNumber(){
-        try {
-            System.out.print("entrando");
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader(isClient.path+"clients.json"));
-        JSONArray jsonArray = (JSONArray)obj;
         
-        return jsonArray.size()+1;
-       } catch (FileNotFoundException ex) {
-           Logger.getLogger(isClient.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (IOException | ParseException ex) {
-           Logger.getLogger(isClient.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        return 1;
-
+            System.out.print("Creando numbero de Cliente");
+          
+        return readFile(Mainpath+clientsP).size()+1;
+       
     }
     private int validateNumberAcc(){
-        try {
-            System.out.print("entrando");
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader(isClient.path+"accounts.json"));
-        JSONArray jsonArray = (JSONArray)obj;
-        
-        return jsonArray.size()+1;
-       } catch (FileNotFoundException ex) {
-           Logger.getLogger(isClient.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (IOException | ParseException ex) {
-           Logger.getLogger(isClient.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        return 1;
+       
+            System.out.print("Creando Numero de cuenta");
+            return readFile(Mainpath+accP).size()+1;
 
     }
     

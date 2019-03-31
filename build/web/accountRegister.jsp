@@ -3,8 +3,8 @@
     Created on : 21-mar-2019, 23:47:31
     Author     : twozer00
 --%>
+<%@page import="com.models.jsonHandler"%>
 <%@page import="org.json.simple.JSONArray"%>
-<%@page import="com.models.ClientsList"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -21,8 +21,8 @@
         
         <c:import url="partials/jsp/valSession.jsp"/>
         <%
-            ClientsList clientsList = new ClientsList();
-            JSONArray jsonArray = clientsList.listClients();
+            jsonHandler clientsList = new jsonHandler();
+            JSONArray jsonArray = clientsList.readFile(clientsList.Mainpath+clientsList.clientsP);
             
             
         %>

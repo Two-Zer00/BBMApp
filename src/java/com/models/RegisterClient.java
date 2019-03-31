@@ -1,27 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.models;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-/**
- *
- * @author twozer00
- */
-public class RegisterClient {
+
+public class RegisterClient extends jsonHandler {
     private isClient val = new isClient();
     
     public void rc(clients client) throws FileNotFoundException, IOException, ParseException{
@@ -29,7 +17,7 @@ public class RegisterClient {
         Object obj = jsonParser.parse(new FileReader("/Users/twozer00/NetBeansProjects/Evidencia2DAW/web/json/clients.json"));
         JSONArray jsonArray = (JSONArray)obj;
 */  
-        JSONArray jsonArray = readFile();
+        JSONArray jsonArray = readFile( Mainpath+clientsP);
         System.out.println("ñañlskjñdlaksjdñ");
         val = new isClient();
         JSONObject cl = null;
@@ -37,15 +25,7 @@ public class RegisterClient {
         System.out.println("NUMERO DE CLIENTE" + client.getNclient());
         
         if(val.isInDatabase(client.getNclient())){
-            /*System.out.print("UPDATE");
-            for(int i=0; i<jsonArray.size();i++){
-                JSONObject cl1 = (JSONObject)jsonArray.get(i);
-                System.out.println("" + client.getNclient() +" "+ cl1.get("client_number"));
-                if (client.getNclient().equals(cl1.get("client_number").toString())){ 
-                    pos=i;
-                }
             
-            }*/
             pos = clientInFile(client,"",jsonArray,pos);
             cl = val.client(client.getNclient());
             cl.put("name", client.getName());
@@ -63,9 +43,7 @@ public class RegisterClient {
                 JSONObject temp = val.client(client.getNclient());
                 cl.put("pass",temp.get("pass"));
             }
-            //cl.put("pass", client.getPass().hashCode());
-            //val.client(client.getNclient()).get("role");
-
+            
             cl.put("role", val.client(client.getNclient()).get("role"));
             jsonArray.remove(pos);
             jsonArray.add(pos,cl);
@@ -90,18 +68,14 @@ public class RegisterClient {
         jsonArray.add(cl);
         }
 
-        writeFile(jsonArray,pos);
-        /*System.out.println(jsonArray.get(pos));
-        FileWriter file = new FileWriter("/Users/twozer00/NetBeansProjects/Evidencia2DAW/web/json/clients.json");
-        file.write(jsonArray.toJSONString());
-        file.flush();
-        file.close();*/
+        writeFile(jsonArray,Mainpath+clientsP);
+       
 
     }
     
     public void addAccountToClient(String nclient,String naccount){
         int pos =0;
-        JSONArray jsonArray = readFile();
+        JSONArray jsonArray = readFile(Mainpath+clientsP);
         pos=clientInFile(null,nclient,jsonArray,pos);
         JSONObject cl = val.client(nclient);
         //JSONObject acc = val.account(nclient,"");
@@ -109,42 +83,10 @@ public class RegisterClient {
         cl.put("account_number",naccount);
         jsonArray.remove(pos);
         jsonArray.add(pos,cl);
-        writeFile(jsonArray,pos);
+        writeFile(jsonArray,Mainpath+clientsP);
     }
     
-    public JSONArray readFile(){
-    JSONParser jsonParser = new JSONParser();
-        Object obj = null;
-        try {
-            obj = jsonParser.parse(new FileReader(isClient.path+"clients.json"));
-        } catch (IOException ex) {
-            Logger.getLogger(RegisterClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(RegisterClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        JSONArray jsonArray = (JSONArray)obj;
-        return jsonArray;
-    }
     
-    public void writeFile(JSONArray arr,int pos){
-        //File filep=();
-        FileWriter file = null;
-        try {
-            System.out.println(arr.get(pos));
-            file = new FileWriter(isClient.path+"clients.json");
-            file.write(arr.toJSONString());
-            file.flush();
-            file.close();
-        } catch (IOException ex) {
-            Logger.getLogger(RegisterClient.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                file.close();
-            } catch (IOException ex) {
-                Logger.getLogger(RegisterClient.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
     public int clientInFile(clients client,String Nclient,JSONArray jsonArray,int pos){
         System.out.print("UPDATE" + Nclient+"///");
         if(client!=null){

@@ -6,6 +6,7 @@
 package com.servlets;
 
 import com.models.isClient;
+import com.models.jsonHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
@@ -92,7 +93,8 @@ public class LoginServlet extends HttpServlet {
         
         if(!n.equals("")&& !p.equals("")){
             isClient val = new isClient();
-            val.setPath(getServletContext().getRealPath("/json/"));
+            jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
+            
             if(val.validation(n,p.hashCode())){
                 UserSession= request.getSession();
                 JSONObject cl = val.client(n);

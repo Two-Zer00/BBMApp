@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/03/2019, 09:51:10 PM
+    Author     : Usuario
+*/
+
+
+#transForm {
+    margin-left: 15px;
+    
+}
+#title p{
+    width: 50px;
+    
+}
+
+table{
+    width: 100%
+}
+
+#transForm table{
+    border:1px solid rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+}
+
+#transForm #title{
+    padding-left:20px;
+    border-right:1px solid rgba(0,0,0,0.2);
+}
+
+#transForm{
+    margin: auto;
+    width: 800px;
+}
+#transForm fieldset {
+    margin-bottom: 10px;
+    border: none;
+}
+#transForm input[type=submit]{
+    font-size: 14px;
+    width: 120px;
+    height: 40px;
+    border-radius: 9px;
+    color:white;
+    background: rgb(9,79,164);
+    border:none;
+}
+#transForm input[type=number]{
+    width: 100%;
+}
+#transForm input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+#transForm input[type=number] { 
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0; 
+}
+
+#transForm select{
+    text-align: right;
+    width: 100%;
+}

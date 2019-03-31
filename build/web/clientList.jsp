@@ -4,12 +4,12 @@
     Author     : twozer00
 --%>
 
+<%@page import="com.models.jsonHandler"%>
 <%@page import="com.models.isClient"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="java.lang.Math"%>
-<%@page import="com.models.ClientsList"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -25,8 +25,8 @@
     <body>
         
         <%
-            ClientsList clientsList = new ClientsList();
-            JSONArray jsonArray = clientsList.listClients();
+            jsonHandler clientsList = new jsonHandler();
+            JSONArray jsonArray = clientsList.readFile(clientsList.Mainpath+clientsList.clientsP);
             
             int pag =1;
             int el=0;
