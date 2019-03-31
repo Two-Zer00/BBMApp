@@ -24,7 +24,7 @@ public class ClientsList {
     public JSONArray listClients(){
         try {
             JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\clients.json"));
+            Object obj = jsonParser.parse(new FileReader(isClient.path+"clients.json"));
             JSONArray jsonArray = (JSONArray)obj;
             return jsonArray;
             /*for(int i=0; i<jsonArray.size();i++){

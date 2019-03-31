@@ -28,7 +28,7 @@ public class RegisterAccount {
         rgc = new RegisterClient();
         try {
             JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\accounts.json"));
+            Object obj = jsonParser.parse(new FileReader(isClient.path+"accounts.json"));
             JSONArray jsonArray = (JSONArray)obj;
             
             System.out.println(jsonArray);
@@ -48,7 +48,7 @@ public class RegisterAccount {
             //jsonArray.
             
             System.out.println(jsonArray);
-            FileWriter file = new FileWriter("E:\\Evidencia2DAW\\web\\json\\accounts.json");
+            FileWriter file = new FileWriter(isClient.path+"accounts.json");
             file.write(jsonArray.toJSONString());
             file.flush();
             file.close();

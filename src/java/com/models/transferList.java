@@ -40,7 +40,7 @@ public class transferList {
     public JSONArray readFile(){
         try {
             JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\transfers.json"));
+            Object obj = jsonParser.parse(new FileReader(isClient.path+"transfers.json"));
             JSONArray jsonArray = (JSONArray)obj;
             return jsonArray;
             

@@ -116,7 +116,7 @@ public class RegisterClient {
     JSONParser jsonParser = new JSONParser();
         Object obj = null;
         try {
-            obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\clients.json"));
+            obj = jsonParser.parse(new FileReader(isClient.path+"clients.json"));
         } catch (IOException ex) {
             Logger.getLogger(RegisterClient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -131,7 +131,7 @@ public class RegisterClient {
         FileWriter file = null;
         try {
             System.out.println(arr.get(pos));
-            file = new FileWriter("E:\\Evidencia2DAW\\web\\json\\clients.json");
+            file = new FileWriter(isClient.path+"clients.json");
             file.write(arr.toJSONString());
             file.flush();
             file.close();

@@ -26,7 +26,7 @@ public class ClientNumber {
         try {
             System.out.print("entrando");
         JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\clients.json"));
+        Object obj = jsonParser.parse(new FileReader(isClient.path+"clients.json"));
         JSONArray jsonArray = (JSONArray)obj;
         
         return jsonArray.size()+1;
@@ -42,7 +42,7 @@ public class ClientNumber {
         try {
             System.out.print("entrando");
         JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\accounts.json"));
+        Object obj = jsonParser.parse(new FileReader(isClient.path+"accounts.json"));
         JSONArray jsonArray = (JSONArray)obj;
         
         return jsonArray.size()+1;

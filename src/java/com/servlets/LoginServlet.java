@@ -8,6 +8,8 @@ package com.servlets;
 import com.models.isClient;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -80,10 +82,17 @@ public class LoginServlet extends HttpServlet {
         //System.out.print("Respuesta");
         String n = request.getParameter("user");
         String p = request.getParameter("pass");
+        //isClient pathFile=new isClient(); 
+        //pathFile.setPath();
+        
+        //Path currentRelativePath = Paths.get("");
+        //String s = currentRelativePath.toAbsolutePath().toString();
+        //System.out.println("Current relative path iss: " + request.getPathTranslated());
+        
+        
         if(!n.equals("")&& !p.equals("")){
             isClient val = new isClient();
-
-
+            val.setPath(getServletContext().getRealPath("/json/"));
             if(val.validation(n,p.hashCode())){
                 UserSession= request.getSession();
                 JSONObject cl = val.client(n);

@@ -24,7 +24,7 @@ import org.json.simple.parser.ParseException;
  * @author Usuario
  */
 public class RegisterTransfer {
-    String fp = "E:\\Evidencia2DAW\\web\\json\\transfers.json";
+    String fp = isClient.path+"transfers.json";
     
     public void RegTransfer(Transference trans) throws FileNotFoundException, IOException, ParseException{
         
@@ -64,7 +64,7 @@ public class RegisterTransfer {
     public void update (String an, String am) {
          
         JSONObject ac = null;
-        JSONArray OG = readFile("E:\\Evidencia2DAW\\web\\json\\accounts.json");
+        JSONArray OG = readFile(isClient.path+"accounts.json");
         int index = 0;
         for (int i=0; i <= OG.size();i++ ){
             ac = (JSONObject)OG.get(i);
@@ -77,7 +77,7 @@ public class RegisterTransfer {
         }
         OG.remove(index);
         OG.add(index, ac);
-        writeFile(OG,"E:\\Evidencia2DAW\\web\\json\\accounts.json");
+        writeFile(OG,isClient.path+"accounts.json");
         
 
         }

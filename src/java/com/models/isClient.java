@@ -5,10 +5,13 @@
  */
 package com.models;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -22,12 +25,23 @@ import org.json.simple.parser.ParseException;
  */
 public class isClient {
     
+    public static String path;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        isClient.path = path;
+    }
+    
+    
     
     public Boolean validation(String user, int pass){
         try {
-        System.out.print("validando si el usuario y la contraseña son validos");
         JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\clients.json"));
+        //File current
+        Object obj = jsonParser.parse(new FileReader(path+"clients.json"));
         JSONArray jsonArray = (JSONArray)obj;
         for(int i=0; i<jsonArray.size();i++){
             JSONObject cl = (JSONObject)jsonArray.get(i);
@@ -48,7 +62,7 @@ public class isClient {
         try {
             System.out.print("validand si el numero de cliente existe");
         JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\clients.json"));
+        Object obj = jsonParser.parse(new FileReader(path+"clients.json"));
         JSONArray jsonArray = (JSONArray)obj;
         for(int i=0; i<jsonArray.size();i++){
             JSONObject cl = (JSONObject)jsonArray.get(i);
@@ -70,7 +84,7 @@ public class isClient {
         try {
         System.out.println("validando si esta en la base de datos");
         JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\clients.json"));
+        Object obj = jsonParser.parse(new FileReader(path+"clients.json"));
         JSONArray jsonArray = (JSONArray)obj;
         System.out.println(jsonArray.size());
         for(int i=0; i<jsonArray.size();i++){
@@ -97,7 +111,7 @@ public class isClient {
         try {
             
             JSONParser jsonParser = new JSONParser();
-            Object obj = jsonParser.parse(new FileReader("E:\\Evidencia2DAW\\web\\json\\accounts.json"));
+            Object obj = jsonParser.parse(new FileReader(path+"accounts.json"));
             JSONArray jsonArray = (JSONArray)obj;
             if(!nclient.isEmpty()){
                 System.out.println("buscando la cuenta con el numero de CLIENTE " + nclient);
