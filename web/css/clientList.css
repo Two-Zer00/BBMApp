@@ -8,13 +8,33 @@ and open the template in the editor.
     Author     : twozer00
 */
 
+#information{
+    
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+#information span{
+    background: black;
+    color:white;
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 0;
+    margin-right:15px; 
+    
+}
 .icon-pencil:before{
     font-size: 22px;
 }
 table a{
     text-decoration: none;
-    color: black;
+    font-weight: bold;
+    color:rgba(09,79,164,1) ;
 }
+table a:hover{
+    text-decoration: underline;
+}
+
 .icon-pencil:hover{
     color: darkblue;
 }

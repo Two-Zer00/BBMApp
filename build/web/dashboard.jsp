@@ -3,6 +3,9 @@
     Created on : 21-mar-2019, 23:11:56
     Author     : twozer00
 --%>
+<%@page import="com.models.jsonHandler"%>
+<%@page import="java.util.Optional"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="com.models.isClient"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,7 +20,7 @@
     </head>
     <body>
         <c:import url="partials/nav.html"/>
-        <c:import url="partials/jsp/valSession.jsp"/>
+        
         
         <c:choose>
             <c:when test="${requestScope.success==true}">
@@ -43,8 +46,7 @@
             </c:when>
             <c:when test="${requestScope.TFSucces==true}">
                         <div class="notification">
-                            <c:import url="/partials/notifications/newaccount.html"/>
-                            <p id="result"><c:out value="No. de cuenta ${requestScope.account_number}"/></p>
+                            <c:import url="/partials/notifications/transfer.html"/>
                         </div>
             </c:when>
             
@@ -58,15 +60,15 @@
         
         <%
             JSONObject client=null;
-            String name = "";/*
-            JSONObject temp = (JSONObject)request.getSession().getAttribute("clientOb");
-            if(request.getAttribute("client_number").equals(temp.get("client_number"))){
-                request.getSession().removeAttribute("clientOb");
-                isClient val = new isClient();
-                request.getSession().setAttribute("clientOb", val.client((String)temp.get("client_number")));
-            }
-            
-            */
+            String name = "";
+            /*String key = "client";
+            Optional<String> n = Arrays.stream(request.getCookies())
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();*/
+            JSONObject cl=null;
+            isClient val = new isClient();
+                  
             if(request.getSession().getAttribute("clientOb")!=null){
                 client = (JSONObject)request.getSession().getAttribute("clientOb");
                 name = client.get("name")+ " " + client.get("last_name");
@@ -79,6 +81,21 @@
 
                 }
             }
+            
+            /*else if(n.isPresent() && request.getSession().getAttribute("clientOb")==null  ){
+                System.out.print("----Entrando con cookies"+n.get());
+                jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
+                cl=val.client(n.get());
+                name = cl.get("name")+ " " + cl.get("last_name");
+                out.print("<h1 style=\"margin-left:20px;\">Hola "+name+"</h1>");
+                if(cl.get("role").equals("user")){
+                    pageContext.setAttribute("userC", true);
+                }
+                else if(cl.get("role").equals("admin")){
+                    pageContext.setAttribute("adminC", true);
+
+                }
+            }*/
             else{
                 response.sendRedirect("index.jsp");
             }

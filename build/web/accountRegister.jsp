@@ -17,7 +17,14 @@
         <title>Alta de cuenta</title>
     </head>
     <body>
+        
         <c:import url="partials/nav.html"/>
+        <c:import url="partials/jsp/valSession.jsp"/>
+        <c:choose>
+            <c:when test="${requestScope.red}">
+                <c:redirect url="index.jsp"/>
+            </c:when>
+        </c:choose>
         
         <c:import url="partials/jsp/valSession.jsp"/>
         <%

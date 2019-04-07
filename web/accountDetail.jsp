@@ -23,6 +23,13 @@
         <c:import url="partials/nav.html"/>
         <c:import url="partials/jsp/valSession.jsp"/>
         
+        <c:choose>
+            <c:when test="${requestScope.red}">
+                <c:redirect url="index.jsp"/>
+            </c:when>
+        </c:choose>
+        
+        
         <%
             JSONObject cl = (JSONObject) request.getSession().getAttribute("clientOb");
             isClient val = new isClient();
@@ -33,7 +40,7 @@
             String[] params= {request.getQueryString()};
             Boolean up=false;
             
-            if(request.getQueryString()!=null && !params[0].contains("index")){
+            if(request.getQueryString()!=null){
                 Map<String, String> map = new HashMap<String, String>();  
                 for (String param : params){  
                     String name = param.split("=")[0];  
@@ -45,6 +52,22 @@
                 pageContext.setAttribute("up", up);
                 acc = val.accounts("",map.get("anumber"));
                 acc1 = (JSONObject) acc.get(0);
+                for(int i=0;i<acc.size();i++){
+                    acc1=(JSONObject)acc.get(i);
+                    out.print("<section id=\"raForm\"><h2>Detalles de la cuenta "+acc1.get("account_number")+"</h2><form>");
+                    out.print("<p><label>Numero de cliente: </label><input type=\"text\" value="+acc1.get("client_number")+" disabled></p>");
+                    out.print("<p><label>Numero de cuenta </label><input type=\"text\" value="+acc1.get("account_number")+" disabled></p>");
+                    out.print("<p><label>Tipo: </label><input type=\"text\" value="+acc1.get("type")+" disabled></p>");
+                    out.print("<p><label>Monto: </label><input type=\"number\" name=\"amount\" value="+acc1.get("amount")+" disabled/></p>");
+                    out.print("<p><label>Fecha: </label><input type=\"date\" name=\"date\" value="+acc1.get("date")+" disabled /></p>");
+                    out.print("</form></section>");
+                    if(i==acc.size()-1){
+                        
+                    }
+                    else{
+                        out.print("<hr style=\"width:50%;\">");
+                    }
+                }
                 
             }
             else{
@@ -59,7 +82,10 @@
                     out.print("<p><label>Tipo: </label><input type=\"text\" value="+acc1.get("type")+" disabled></p>");
                     out.print("<p><label>Monto: </label><input type=\"number\" name=\"amount\" value="+acc1.get("amount")+" disabled/></p>");
                     out.print("<p><label>Fecha: </label><input type=\"date\" name=\"date\" value="+acc1.get("date")+" disabled /></p>");
-                    out.print("</form></section><hr style=\"width:50%;\">");
+                    if(i!=acc.size()-1){
+                        out.print("<hr style=\"width:100%;\">");
+                    }
+                    out.print("</form></section>");
                 }
             }
             

@@ -18,7 +18,12 @@
         <title>Detalles</title>
     </head>
     <body>
-        
+        <c:import url="partials/jsp/valSession.jsp"/>
+        <c:choose>
+            <c:when test="${requestScope.red}">
+                <c:redirect url="index.jsp"/>
+            </c:when>
+        </c:choose>
         <c:import url="partials/nav.html"/>
         <%
             JSONObject cl=null;
@@ -81,8 +86,8 @@
                 <p><label>Teléfono: </label><input type="number" name="phone" value=<%out.print("\""+cl.get("phone").toString()+"\""+up);%>/></p>
                 <p><label>E-mail: </label><input type="email" name="mail"  value=<%out.print("\""+cl.get("email").toString()+"\""+up);%>/></p>
                 <p><label>Fecha de nacimiento: </label><input type="text" name="bdate" value=<%out.print("\""+cl.get("birth_date").toString()+"\""+up);%>/></p>
-                <p><label>Número de cliente: </label><input type="text" name="ncliente" pattern="[0-9]{5}" value=<%out.print("\""+cl.get("client_number").toString()+"\"" +up);%>/></p>
-                <p><label>Número de cuenta: </label><input type="text" name="naccount" pattern="[0-9]{5}" value=<%
+                <p><label>Número de cliente: </label><input  type="text" name="ncliente" pattern="[0-9]{5}" value=<%out.print("\""+cl.get("client_number").toString()+"\"" +up);%>/></p>
+                <p><label>Número de cuenta: </label><input  type="text" name="naccount" pattern="[0-9]{5}" value=<%
                     out.print("\"");
                     out.print(acc);
                     out.print("\" ");

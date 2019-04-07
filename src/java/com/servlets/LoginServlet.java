@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,7 @@ import org.json.simple.JSONObject;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
     HttpSession UserSession;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -80,30 +82,35 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //System.out.print("Respuesta");
         String n = request.getParameter("user");
         String p = request.getParameter("pass");
-        //isClient pathFile=new isClient(); 
-        //pathFile.setPath();
+        Boolean r = false;
+        if(request.getParameter("remember")!=null){
+            r=true;
+        }
         
-        //Path currentRelativePath = Paths.get("");
-        //String s = currentRelativePath.toAbsolutePath().toString();
-        //System.out.println("Current relative path iss: " + request.getPathTranslated());
-        
-        
+        //Boolean r = Boolean.request.Parameter("remember");
+        //Boolean remember = Boolean.valueOf(r);
         if(!n.equals("")&& !p.equals("")){
             isClient val = new isClient();
             jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
             
-            if(val.validation(n,p.hashCode())){
+            if(val.validation(n,p.hashCode())&&!r){
+                System.out.println("\n------Save in cookies OFF-----\n");
                 UserSession= request.getSession();
                 JSONObject cl = val.client(n);
                 UserSession.setAttribute("clientOb", cl);
-                //request.setAttribute("clientOb", cl);
-                /*RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/dashboard.jsp");
-                dispatcher.forward(request,response);*/
                 response.sendRedirect("dashboard.jsp");
-
+            }
+            else if(val.validation(n,p.hashCode())&&r){
+                System.out.println("\n------Save in cookies ON-----\n");
+                UserSession= request.getSession();
+                JSONObject cl = val.client(n);
+                Cookie cookie=new Cookie("client",cl.get("client_number").toString());
+                UserSession.setAttribute("clientOb", cl);
+                response.addCookie(cookie);
+                response.sendRedirect("dashboard.jsp");
+                
             }
             else{
                 System.out.println("No valido");
@@ -111,13 +118,11 @@ public class LoginServlet extends HttpServlet {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request,response);
             }
-            //processRequest(request, response);
-            }
+        }
         else{
             request.setAttribute("emptyFields", false);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request,response);
-            //response.sendRedirect("index.jsp");
         }
     }
 

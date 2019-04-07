@@ -4,6 +4,8 @@
     Author     : twozer00
 --%>
 
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.Optional"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,8 +15,20 @@
     </head>
     <body>
         <%
-            //HttpSession session1 = (HttpSession)request.getSession();
+            /*String key = "client";
+            Optional<String> n = Arrays.stream(request.getCookies())
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();
+            */
+            
+            System.out.println("\n-----SALIENDO-----\n");
             if(request.getSession()!=null){
+                /*Cookie cookie = new Cookie("client", "");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                
+                System.out.println("\n-----SALIENDO-----\n"+n);*/
                 request.getSession().invalidate();
                 response.sendRedirect("../index.jsp");
             }

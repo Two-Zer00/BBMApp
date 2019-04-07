@@ -4,6 +4,8 @@
     Author     : twozer00
 --%>
 
+<%@page import="java.util.Optional"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -17,6 +19,7 @@
     </head>
     <body>
         <c:import url="partials/header.html"/>
+        
         
         <c:choose>
             <c:when test="${requestScope.userVal==false}">
@@ -41,6 +44,7 @@
                 %>
             </c:when>    
             <c:otherwise>
+                <a id="back" href="index.html">Regresar a la página de inicio</a>
                 <c:import url="partials/LoginForm.html"/>
             </c:otherwise>
         </c:choose>

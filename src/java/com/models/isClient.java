@@ -5,6 +5,8 @@
  */
 package com.models;
 
+import java.util.Arrays;
+import java.util.Optional;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -27,17 +29,18 @@ public class isClient extends jsonHandler {
     }
     public JSONObject client(String user){
         
-            System.out.print("validand si el numero de cliente existe");
+        System.out.println("\n----validand si el numero de cliente existe\n");
         
         JSONArray jsonArray = readFile(Mainpath+clientsP);
         for(int i=0; i<jsonArray.size();i++){
             JSONObject cl = (JSONObject)jsonArray.get(i);
             if (user.equals(cl.get("client_number").toString())){  
+                System.out.println("\n----Cliente encontrado\n");
                 return cl;
             }
             
         }
-        
+        System.out.println("\n----Cliente no encontrado\n");
         return null;
     }
     
@@ -107,5 +110,4 @@ public class isClient extends jsonHandler {
     public int accountpos(int pos){
         return pos;
     }
-    
 }
