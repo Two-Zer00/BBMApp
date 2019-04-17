@@ -1,0 +1,335 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 31-mar-2019, 20:43:39
+    Author     : twozer00
+*/
+
+.inicio,#in{
+    display: none;
+    border: 1px solid rgb(09,79,164);
+    background: rgb(255,255,255);
+    width: 15%;
+    min-width: 250px;
+    height: auto;
+    position: absolute;
+    padding: 0 20px;
+    top: 85px;
+    
+    right: 130px;
+    box-shadow: 5px 5px 5px #888888; 
+    border-radius: 8px;
+}
+
+.inicio form,input{
+    width: 100%;
+}
+
+.inicio form p{
+    color:rgb(0,110,193);
+    font-size: 30px;
+    text-align: center;
+    width:100%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.inicio form input{
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+
+#men{
+    display: none;
+}
+.menNav label{
+    display: none ;
+}
+
+*{ 
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+nav{
+    position: fixed;
+    z-index: 100;
+    background-color: rgb(09,79,164);
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80px;
+    margin:0;
+    top:0;
+}
+nav .container{
+    width: 80%;
+    margin: auto;
+}
+
+nav .logo img{
+    width: 200px;
+    padding: 14px 5px;
+}
+.container div{
+    display:inline-block;
+}
+
+.menNav{
+    float: right;
+    width: auto;
+    height: 100%;
+}
+.menNav li{
+    padding: 10px;
+    color:#fff;
+    display:inline-block;
+    
+    transition: 5seg;
+    
+}
+.menNav li a {
+    font-size: 20px;
+    text-decoration: none;
+    color:#fff;
+}
+
+.menNav li:hover{
+    border-bottom: 2px solid white;;
+}
+
+
+/* Slideshow container */
+.slider {
+  top:80px;
+  width: 80%;
+  height: 480px;
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+.mySlides img{
+    width: 100%;
+    min-width: 1280px;
+    height: 800px;
+    min-height: 750px;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background: rgba(0,0,0,0.2);
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+    background: rgba(0,0,0,0.5);
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  display:none;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    top: 85px;
+    position: relative;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 0.5s;
+  animation-name: fade;
+  animation-duration: 0.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+section{
+    position:relative;
+    top: 80px;
+    margin: auto;
+    width: 80%;
+    margin-bottom: 15px;
+}
+section h1{
+    margin-left:1.5%;
+    width: 100%;
+    font-size: 2em;
+}
+
+section article{
+    box-shadow: 10px 10px 8px #888888; 
+    border-radius: 5px;
+    color :white;
+    background: rgba(09,79,164,0.8);
+    margin:5px 1.5%;
+    width: 30%;
+    display: inline-block;
+}
+section article h2,a{
+    text-align: center;
+}
+section article p{
+    text-align: justify;
+    margin: 0 10px 15px 15px;
+}
+section article h2{
+    background: black;
+    width: 100%;
+}
+section article a{
+    display: block;
+    background:#000; 
+    height: 30px;
+    width: 80%;
+    color:white;
+    text-decoration: none;
+    margin:auto;
+    margin-bottom: 15px;
+    font-size: 20px;
+    border-radius: 8px;
+}
+#acerca{
+    height: 250px;
+}
+section div p{
+    text-align: justify;
+    display: block;
+    float: right;
+    width: 48%;
+    margin: 0 1%;
+}
+section div img{
+    margin: 0 1%;
+    display: block;
+    float:left;
+    width: 48%;
+}
+
+footer{
+    position:relative;
+    width: 80%;
+    height: 50px;
+    margin: auto;
+    top:80px;
+}
+footer ul{
+    text-align: center;
+}
+footer ul li{
+    display: inline-block;
+    margin: 0 15px;
+}
+footer ul li a{
+    text-decoration: none;
+    color:gray;
+}
+
+@media only screen and (max-width: 700px) {
+    .menNav ul{
+        margin-top: 0;
+        position: absolute;
+        top:80px;
+        left: 0;
+        height: 100vh;
+        background: rgba(09,79,164,0.9);
+        width: 100%;
+    }
+    
+    .slider{
+        display: none;
+    }
+    section article{
+        display: block;
+        width: 100%;
+        
+    }
+    .menNav ul li {
+        display: block;
+        height: 50px;
+
+        border-bottom: 1px solid rgba(255,255,255,0.5)
+    }
+    #men{
+        display: block;
+    }
+    .menNav label{
+        display:inline;
+        margin-top:20px;
+        height: 80px;
+        font-size: 50px;
+        color: white;
+    }
+    .menNav div,label{
+        display: block;
+    }
+}
+
+

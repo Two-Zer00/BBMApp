@@ -14,7 +14,8 @@ and open the template in the editor.
     
 }
 #title p{
-    width: 50px;
+    text-align: center;
+    display: block;
     
 }
 
@@ -28,7 +29,7 @@ table{
 }
 
 #transForm #title{
-    padding-left:20px;
+    width: 200px;
     border-right:1px solid rgba(0,0,0,0.2);
 }
 
@@ -40,7 +41,11 @@ table{
     margin-bottom: 10px;
     border: none;
 }
+#transForm input{
+    text-align: right;
+}
 #transForm input[type=submit]{
+    text-align: center;
     font-size: 14px;
     width: 120px;
     height: 40px;
@@ -62,6 +67,7 @@ table{
 }
 
 #transForm select{
+    font-size: 15px;
     text-align: right;
     width: 100%;
 }

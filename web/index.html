@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+        <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon" />
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="css/iindex.css" rel="stylesheet" type="text/css" />
+        <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0">
+    </head>
+    <body>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="img/logoBMMmonocromatic.png"></a>
+                </div>
+                <div class="menNav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#acerca">Acerca de</a></li>
+                        <li><a  onclick="myFunction()" href="javascript:void(0)">Iniciar sesión</a>
+                            <div class="inicio" id="in">
+                                <form method="post" action="login.do">
+                                <p>Iniciar sesión</p>
+                                <input type="text" name="user" placeholder="Numero de cliente">
+                                <input type="password" name="pass" placeholder="Clave de acceso">
+                                <input type="submit" value="Entrar">
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                   
+                    <label for="men">&bigoplus;</label><input id="men" type="checkbox">
+                </div>
+            </div>
+        </nav>
+        <div class="slider">
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 3</div>
+                <img src="https://static1.squarespace.com/static/5a0ddf759f07f5364e9be0c3/5a13123653450a4d992a29c8/5a20a6ec652deaf7d7b4ffb2/1519692244293/bank-of-america-corp-logo.jpg?format=2500w" alt="Slider1">
+                <div class="text">Caption Text</div>
+            </div>
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 3</div>
+                <img src="https://cdn.japantimes.2xx.jp/wp-content/uploads/2018/04/b-bojwomen-a-20180414.jpg" alt="Slider2">
+                <div class="text">Caption Text</div>
+            </div>
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 3</div>
+                <img src="http://www.profesionaliza.com.mx/images/blog/blog-2.jpg" alt="Slider3">
+                <div class="text">Caption Text</div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        
+        
+        <section id="servicios">
+            <h1>
+                Servicios
+            </h1>
+            <article>
+                <h2>Lorem ipsum dolor sit amet</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, sapiente, officia, autem, doloribus impedit harum ut laborum nisi error inventore quasi facere cupiditate deserunt. Debitis, officiis, id. Illum, recusandae, maiores.</p>
+                <a href="javascript:void(0)">Ver más</a>
+            </article>
+            <article>
+                <h2>Lorem ipsum dolor sit amet</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, sapiente, officia, autem, doloribus impedit harum ut laborum nisi error inventore quasi facere cupiditate deserunt. Debitis, officiis, id. Illum, recusandae, maiores.</p>
+                <a href="javascript:void(0)">Ver más</a>
+            </article>
+            <article>
+                <h2>Lorem ipsum dolor sit amet</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, sapiente, officia, autem, doloribus impedit harum ut laborum nisi error inventore quasi facere cupiditate deserunt. Debitis, officiis, id. Illum, recusandae, maiores.</p>
+                <a href="javascript:void(0)">Ver más</a>
+            </article>
+        </section>
+
+        
+        
+        <section id="acerca">
+            <h1>
+                Acerca de
+            </h1>
+            <div>
+                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, sed est numquam dolorem dolorum deleniti laboriosam unde veniam quia ipsam eius eaque ut distinctio accusantium sapiente repellendus doloremque corrupti minima.</span><span>Reiciendis, natus, atque quas dolore nobis explicabo quisquam est nemo dolorum corporis quibusdam nam quo excepturi repudiandae eveniet. Debitis, optio, ducimus ut quisquam culpa consequatur provident tenetur laboriosam veniam omnis.</span></p>
+                <img src="img/LogoBMM.png" alt="Logo">
+            </div>
+        </section>
+        
+        
+        <footer>
+            <ul>
+                <li><a href="javascript:void(0)">Terminos y condiciones</a></li>
+                <li><a href="javascript:void(0)">Derechos reservados&COPY;</a></li>
+                <li><a href="javascript:void(0)">Aviso de privacidad</a></li>
+            </ul>
+        </footer>
+        
+        <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            // Next/previous controls
+            function plusSlides(n) {
+              showSlides(slideIndex += n);
+            }
+
+            // Thumbnail image controls
+            function currentSlide(n) {
+              showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+              var i;
+              var slides = document.getElementsByClassName("mySlides");
+              var dots = document.getElementsByClassName("dot");
+              if (n > slides.length) {slideIndex = 1;}
+              if (n < 1) {slideIndex = slides.length;}
+              for (i = 0; i < slides.length; i++) {
+                  slides[i].style.display = "none";
+              }
+              for (i = 0; i < dots.length; i++) {
+                  dots[i].className = dots[i].className.replace(" active", "");
+              }
+              slides[slideIndex-1].style.display = "block";
+              dots[slideIndex-1].className += " active";
+            }
+            
+            function myFunction(){
+                var d = document.getElementById("in");
+                
+                if(d.style.display=="block"){
+                    d.style.display="none";
+                    
+                }
+                else{
+                    d.style.display="block";
+                }
+            }
+            
+        </script>
+        
+        
+        
+        
+        
+    </body>
+</html>
