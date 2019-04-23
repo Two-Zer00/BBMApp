@@ -29,7 +29,7 @@ public class isClient extends jsonHandler {
     }
     public JSONObject client(String user){
         
-        System.out.println("\n----validand si el numero de cliente existe\n");
+        System.out.println("\n----validand si el numero de cliente existe: " +user );
         
         JSONArray jsonArray = readFile(Mainpath+clientsP);
         for(int i=0; i<jsonArray.size();i++){
@@ -81,6 +81,7 @@ public class isClient extends jsonHandler {
                         temp1++;
                     }
                 }
+                System.out.println("TERMINADO");
                 return temp;
             }
             else if(!naccount.isEmpty()){

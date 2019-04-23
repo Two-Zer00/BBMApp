@@ -17,14 +17,14 @@ and open the template in the editor.
         <nav>
             <div class="container">
                 <div class="logo">
-                    <a href="index.html"><img src="img/logoBMMmonocromatic.png"></a>
+                    <a href="index.html"><img src="img/logoBMMmonocromatic.png" alt="Logo"></a>
                 </div>
                 <div class="menNav">
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="#servicios">Servicios</a></li>
                         <li><a href="#acerca">Acerca de</a></li>
-                        <li><a  onclick="myFunction()" href="javascript:void(0)">Iniciar sesión</a>
+                        <li><a href="index.jsp">Iniciar sesión</a>
                             <div class="inicio" id="in">
                                 <form method="post" action="login.do">
                                 <p>Iniciar sesión</p>
@@ -57,7 +57,7 @@ and open the template in the editor.
                 <div class="text">Caption Text</div>
             </div>
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <a class="next" onclick="plusSlides(+1)">&#10095;</a>
         </div>
         <!-- The dots/circles -->
         <div style="text-align:center">
@@ -112,6 +112,11 @@ and open the template in the editor.
         <script>
             var slideIndex = 1;
             showSlides(slideIndex);
+            
+            
+            function index(){
+                return slideIndex;
+            }
 
             // Next/previous controls
             function plusSlides(n) {
@@ -139,7 +144,7 @@ and open the template in the editor.
               dots[slideIndex-1].className += " active";
             }
             
-            function myFunction(){
+            /*function myFunction(){
                 var d = document.getElementById("in");
                 
                 if(d.style.display=="block"){
@@ -149,7 +154,7 @@ and open the template in the editor.
                 else{
                     d.style.display="block";
                 }
-            }
+            }*/
             
         </script>
         

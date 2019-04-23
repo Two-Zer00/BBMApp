@@ -4,9 +4,10 @@
     Author     : twozer00
 --%>
 
+<%@page import="com.models.isClient"%>
+<%@page import="com.models.jsonHandler"%>
 <%@page import="java.util.Optional"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -19,7 +20,20 @@
     </head>
     <body>
         <c:import url="partials/header.html"/>
-        
+        <%
+            String key = "client";
+            Optional<String> n = Arrays.stream(request.getCookies())
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();
+            System.out.println("The Cookies are: " + n.toString());
+            if(n.isPresent()){
+                jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
+                isClient val = new isClient();
+                HttpSession userSession = request.getSession();
+                userSession.setAttribute("clientOb", val.client(n.get()));
+            }
+        %>
         
         <c:choose>
             <c:when test="${requestScope.userVal==false}">
@@ -36,7 +50,6 @@
             </c:when>
         </c:choose>
         
-        
         <c:choose>
             <c:when test="${sessionScope.clientOb!=null}">
                 <%
@@ -48,7 +61,6 @@
                 <c:import url="partials/LoginForm.html"/>
             </c:otherwise>
         </c:choose>
-        
         
     </body>
 </html>

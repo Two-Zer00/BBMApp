@@ -15,14 +15,24 @@
     </head>
     <body>
         <%
-            /*String key = "client";
+            String key = "client";
+            /*Optional<String> n = Arrays.stream(request.getCookies())
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();*/
+            
+            System.out.println("\n-----Borrando cookies-----\n");
+            Cookie cookie = new Cookie("client", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
             Optional<String> n = Arrays.stream(request.getCookies())
                 .filter(c -> key.equals(c.getName()))
                 .map(Cookie::getValue)
                 .findAny();
-            */
             
-            System.out.println("\n-----SALIENDO-----\n");
+            System.out.println("\n-----cookies"+ n +"-----\n");
+                
+            
             if(request.getSession()!=null){
                 /*Cookie cookie = new Cookie("client", "");
                 cookie.setMaxAge(0);

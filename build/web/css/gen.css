@@ -122,7 +122,7 @@ nav{
     width: 100%;
     margin-bottom: 30px;
 }
-nav img{
+nav .separator #imagen img{
     width:295px;
     height: 75px;;
     background-color: white;
@@ -142,10 +142,11 @@ nav .nav{
     height: 30px;
     background: rgba(09,79,164,1); 
 }
-nav a{
+nav #out{
     text-decoration: none;
     position:relative;
-    left: 87%;
+    left: 90%;
+    transform: translateX(-90%);
     font-size: 30px;
     margin-top: 20px;
     color: red;

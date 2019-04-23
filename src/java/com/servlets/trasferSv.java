@@ -8,11 +8,14 @@ package com.servlets;
 import com.models.RegisterTransfer;
 import com.models.Transference;
 import com.models.isClient;
+import com.models.jsonHandler;
+import com.models.transferList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +23,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import java.util.Date;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
@@ -71,7 +78,36 @@ public class trasferSv extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("application/json;charset=UTF-8");
+        String key = "client";
+        Optional<String> n = Arrays.stream(request.getCookies())
+            .filter(c -> key.equals(c.getName()))
+            .map(Cookie::getValue)
+            .findAny();
+        System.out.println("The Cookies are: " + n.toString());
+        if(n.isPresent()){
+            jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
+            transferList tl = new transferList();
+            isClient val = new isClient();
+            JSONObject acc = (JSONObject) val.accounts(n.get(), "").get(0);
+            //JSONObject temp =(JSONObject) request.getSession().getAttribute("clientOb");
+            //JSONArray jsonArray = ;
+            
+            //JSONArray comb = tl.recieveAccountTransfers("asdasd").tl.clientTransfers("sdasda");
+            
+            //response.getWriter().write("{\"NUMEROS\":[{\"numero\":123},{\"numero\":123}]}");
+            
+            
+            response.getWriter().write("{\"recibidas\":[");
+            response.getWriter().write(tl.recieveAccountTransfers(acc.get("account_number").toString()).toString().replace("[", "").replace("]", ""));
+            response.getWriter().write("],");
+            
+            response.getWriter().write("\"hechas\":[");
+            response.getWriter().write(tl.clientTransfers(n.get()).toString().replace("[", "").replace("]", ""));
+            response.getWriter().write("]}");
+            
+        }
+        
     }
 
     /**

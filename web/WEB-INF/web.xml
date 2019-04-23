@@ -6,7 +6,7 @@
 	 version="3.1">
     <session-config>
         <session-timeout>
-            60
+            1
         </session-timeout>
     </session-config>
     <servlet>
@@ -42,6 +42,15 @@
     <servlet-mapping>
         <servlet-name>transferSv</servlet-name>
         <url-pattern>/transfer.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.servlets.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     
 
