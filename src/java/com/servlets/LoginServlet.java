@@ -111,23 +111,20 @@ public class LoginServlet extends HttpServlet {
             }
             else{
                 System.out.println("No valido");
-                
                 //request.setAttribute("userVal", false);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                PrintWriter writer = response.getWriter();
-                writer.print("Usuario no validoasdasd");
-                writer.close();
-                //dispatcher.forward(request,response);
-                dispatcher.include(request, response);
+                request.setAttribute("userVal",false);
+                dispatcher.forward(request,response);
+                //dispatcher.include(request, response);
             }
         }
         else{
-            //request.setAttribute("emptyFields", false);
+            request.setAttribute("emptyFields", false);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-            /*dispatcher.forward(request,response);*/
-            PrintWriter writer = response.getWriter();
-            writer.println("Usuario no valido11");
-            dispatcher.include(request, response);
+            dispatcher.forward(request,response);
+            //PrintWriter writer = response.getWriter();
+            //writer.println("Usuario no valido11");
+            //dispatcher.include(request, response);
         }
     }
 

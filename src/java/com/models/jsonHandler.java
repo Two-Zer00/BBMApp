@@ -5,9 +5,7 @@
  */
 package com.models;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -37,7 +35,10 @@ public class jsonHandler {
     JSONParser jsonParser = new JSONParser();
         Object obj = null;
         try {
-            obj = jsonParser.parse(new FileReader(filepath));
+            System.out.println(filepath);
+            obj = jsonParser.parse(new BufferedReader(new InputStreamReader(new FileInputStream(filepath), "UTF-8")));
+
+            //obj = jsonParser.parse(new FileReader(filepath));
         } catch (IOException | ParseException ex) {
             Logger.getLogger(RegisterClient.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -30,6 +30,7 @@ public class RegisterTransfer extends jsonHandler {
          tf.put("date", trans.getDate());
          tf.put("client_number", trans.getNclient());
          jsonArray.add(tf);
+         System.out.print("----");
          DoTransfer(trans.getAcc1(),trans.getAcc2(),trans.getAmount());
          
          writeFile(jsonArray,Mainpath+transP);

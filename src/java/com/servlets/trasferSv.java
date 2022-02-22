@@ -15,15 +15,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
-import java.util.Date;
-import java.util.Optional;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -79,35 +78,140 @@ public class trasferSv extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
+        jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
         String key = "client";
         Optional<String> n = Arrays.stream(request.getCookies())
             .filter(c -> key.equals(c.getName()))
             .map(Cookie::getValue)
             .findAny();
         System.out.println("The Cookies are: " + n.toString());
+        System.out.println("//"+(JSONObject)request.getSession().getAttribute("clientOb"));
+        transferList tl = new transferList();
+        isClient val = new isClient();
+        JSONObject acc = new JSONObject();
+        String accountNumber = (String) request.getParameter("accountNumber");
+
         if(n.isPresent()){
-            jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
-            transferList tl = new transferList();
-            isClient val = new isClient();
-            JSONObject acc = (JSONObject) val.accounts(n.get(), "").get(0);
-            //JSONObject temp =(JSONObject) request.getSession().getAttribute("clientOb");
-            //JSONArray jsonArray = ;
-            
-            //JSONArray comb = tl.recieveAccountTransfers("asdasd").tl.clientTransfers("sdasda");
-            
-            //response.getWriter().write("{\"NUMEROS\":[{\"numero\":123},{\"numero\":123}]}");
-            
-            
-            response.getWriter().write("{\"recibidas\":[");
-            response.getWriter().write(tl.recieveAccountTransfers(acc.get("account_number").toString()).toString().replace("[", "").replace("]", ""));
-            response.getWriter().write("],");
-            
-            response.getWriter().write("\"hechas\":[");
-            response.getWriter().write(tl.clientTransfers(n.get()).toString().replace("[", "").replace("]", ""));
-            response.getWriter().write("]}");
+            JSONArray accounts = val.accounts(n.get(), "");
+            for (int i = 0; i < accounts.size(); i++) {
+                JSONObject temp = (JSONObject) val.accounts(n.get(), "").get(i);
+                if(temp.get("account_number").equals(accountNumber)){
+                    acc = (JSONObject) val.accounts(n.get(), "").get(i);
+                }
+            }
+
+//            transferList tl = new transferList();
+//            isClient val = new isClient();
+//            JSONObject acc = (JSONObject) val.accounts(n.get(), "").get(0);
+//            //JSONObject temp =(JSONObject) request.getSession().getAttribute("clientOb");
+//            //JSONArray jsonArray = ;
+//
+//            //JSONArray comb = tl.recieveAccountTransfers("asdasd").tl.clientTransfers("sdasda");
+//
+//            //response.getWriter().write("{\"NUMEROS\":[{\"numero\":123},{\"numero\":123}]}");
+//
+//
+//            response.getWriter().write("{\"recibidas\":[");
+//            System.out.println("jkl"+tl.recieveAccountTransfers(acc.get("account_number").toString())
+//                    .toString().replace("[", "")
+//                    .replace("]", ""));
+//            response.getWriter().write(tl.recieveAccountTransfers(acc.get("account_number").toString())
+//                    .toString().replace("[", "")
+//                    .replace("]", ""));
+//            response.getWriter().write("],");
+//
+//            response.getWriter().write("\"hechas\":[");
+//            response.getWriter().write(tl.clientTransfers(n.get()).toString().replace("[", "").replace("]", ""));
+//            response.getWriter().write("]}");
             
         }
-        
+        else if(request.getSession()!=null){
+
+            String clientNumber = ((JSONObject)request.getSession().getAttribute("clientOb")).get("client_number").toString();
+            //acc = (JSONObject) val.accounts(clientNumber, "").get(0);
+            JSONArray accounts = val.accounts(clientNumber, "");
+            for (int i = 0; i < accounts.size(); i++) {
+                JSONObject temp = (JSONObject) val.accounts(clientNumber, "").get(i);
+                if(temp.get("account_number").equals(accountNumber)){
+                    acc = (JSONObject) val.accounts(clientNumber, "").get(i);
+                }
+            }
+//            //System.out.print("//"+clientNumber);
+//
+//            jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
+//            transferList tl = new transferList();
+//            isClient val = new isClient();
+//            JSONObject acc = (JSONObject) val.accounts(clientNumber, "").get(0);
+//            JSONArray transferMade = tl.recieveAccountTransfers(acc.get("account_number").toString());
+//            int amount = 0;
+//            for (Object element : transferMade){
+//                amount+=Integer.getInteger((String) ((JSONObject) element).get("amount"));
+//            }
+//            //JSONObject temp =(JSONObject) request.getSession().getAttribute("clientOb");
+//            //JSONArray jsonArray = ;
+//
+//            //JSONArray comb = tl.recieveAccountTransfers("asdasd").tl.clientTransfers("sdasda");
+//
+//            //response.getWriter().write("{\"NUMEROS\":[{\"numero\":123},{\"numero\":123}]}");
+//
+//
+//
+//
+//            response.getWriter().write("{\"recibidas\":[");
+//            System.out.println(tl.recieveAccountTransfers(acc.get("account_number").toString()));
+//            response.getWriter().write(tl.recieveAccountTransfers(acc.get("account_number").toString()).toString().replace("[", "").replace("]", ""));
+//            response.getWriter().write("],");
+//
+//            response.getWriter().write("\"hechas\":[");
+//            response.getWriter().write(tl.clientTransfers(clientNumber).toString().replace("[", "").replace("]", ""));
+//            response.getWriter().write("]}");
+
+        }
+        System.out.println(accountNumber+acc.toString());
+        JSONArray transferReceived = tl.recieveAccountTransfers(acc.get("account_number").toString());
+        JSONArray transferMade = tl.clientTransfers(acc.get("account_number").toString());
+        System.out.println(transferReceived.toString());
+        System.out.println(transferMade.toString());
+        int amountM = 0;
+        int amountR = 0;
+        Optional<String> monthRequired = Optional.ofNullable(request.getParameter("month"));
+        Calendar cal = Calendar.getInstance();
+
+        amountM = getAmount(transferMade, amountM, monthRequired, cal);
+        amountR = getAmount(transferReceived, amountR, monthRequired, cal);
+        response.getWriter().write("{\"recibidas\":");
+        response.getWriter().write(""+String.valueOf(amountR)+"");
+        response.getWriter().write(",");
+
+        response.getWriter().write("\"hechas\":");
+        response.getWriter().write(""+String.valueOf(amountM)+"");
+        response.getWriter().write("}");
+    }
+
+    private int getAmount(JSONArray transferReceived, int amount, Optional<String> monthRequired, Calendar cal) {
+        for (Object element : transferReceived) {
+            long milliSec = Long.parseLong((((JSONObject)element).get("date").toString()));
+            cal.setTimeInMillis(milliSec);
+            int elementDate = cal.get(Calendar.MONTH);
+            //int tempMonthRequired = Integer.parseInt(monthRequired.get());
+
+
+
+
+            if(monthRequired.isPresent()){
+                if(elementDate == Integer.parseInt(monthRequired.get())){
+                    amount+=Integer.parseInt(((JSONObject)element).get("amount").toString());
+                }
+            }
+            else{
+                Calendar today = Calendar.getInstance();
+                today.setTimeInMillis(System.currentTimeMillis());
+                if(today.get(Calendar.MONTH)==cal.get(Calendar.MONTH)){
+                    amount+=Integer.parseInt(((JSONObject)element).get("amount").toString());
+                }
+            }
+        }
+        return amount;
     }
 
     /**
@@ -134,7 +238,7 @@ public class trasferSv extends HttpServlet {
             tf.setAcc2(request.getParameter("acc2"));
             tf.setAmount(request.getParameter("amount"));
             tf.setNclient(cl.get("client_number").toString());
-            tf.setDate(d.format(new Date()));
+            tf.setDate(String.valueOf((new Date()).getTime()));
 
             RegisterTransfer rf = new RegisterTransfer();
             try {

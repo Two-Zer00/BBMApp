@@ -28,7 +28,7 @@
                 .findAny();
             System.out.println("The Cookies are: " + n.toString());
             if(n.isPresent()){
-                jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
+                jsonHandler.setMainpath(request.getServletContext().getRealPath("/json"));
                 isClient val = new isClient();
                 HttpSession userSession = request.getSession();
                 userSession.setAttribute("clientOb", val.client(n.get()));

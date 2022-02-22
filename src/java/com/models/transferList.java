@@ -30,14 +30,15 @@ public class transferList extends jsonHandler {
     }
     public JSONArray recieveAccountTransfers(String NA){
         JSONArray rf = readFile(Mainpath+transP);
-            JSONArray ct = new JSONArray(); 
-            for(int i=0 ; i<rf.size();i++){
-                JSONObject temp = (JSONObject)rf.get(i);
-                if (temp.get("deposit_account").toString().equals(NA) ){
-                    System.out.print(temp.get("deposit_account"));
-                    ct.add(temp);
-                }
+        JSONArray ct = new JSONArray();
+        //System.out.print(rf.toJSONString());
+        for(int i=0 ; i<rf.size();i++){
+            JSONObject temp = (JSONObject)rf.get(i);
+            if (temp.get("deposit_account").toString().equals(NA) ){
+                System.out.print(temp.get("deposit_account"));
+                ct.add(temp);
             }
+        }
         return ct;
         
     }
