@@ -1,8 +1,10 @@
-<%-- 
+<%@page import="java.nio.charset.StandardCharsets"%>
+﻿<%-- 
     Document   : clientList
     Created on : 22-mar-2019, 17:15:38
     Author     : twozer00
 --%>
+
 
 <%@page import="com.models.jsonHandler"%>
 <%@page import="com.models.isClient"%>
@@ -78,12 +80,11 @@
               <th>Estado</th>
               <th>Ciudad</th>
               <th>Pais</th>
-              <th>Telefono</th>
+              <th>Teléfono</th>
               <th>Correo</th>
               <th>Fecha de nacimiento</th>
             </tr>
             <%
-                
                 for(int i=0; i<jsonArray.size();i++){
                     
                     
@@ -126,10 +127,15 @@
                         else{
                             out.print("<a  href=accountDetail.jsp?anumber="+ accnum[0]+" title=\"Actualizar los datos de la cuenta\">"+accnum[0]+"</a>");
                         }
+                        //encoding adress UTF-8
+                        String adress = cl.get("adress").toString();
+                        byte[] bytes = adress.getBytes(StandardCharsets.UTF_8);
+                        String utf8String = new String(bytes);
+                        
                         out.print("</td>");
                         out.print("<td>"+ cl.get("name")+"</td>"
                                 + "<td>"+ cl.get("last_name")+"</td>"
-                                + "<td>"+ cl.get("adress")+"</td>"
+                                + "<td>"+ (adress)+"</td>"
                                 + "<td>"+ cl.get("zip_code")+"</td>"
                                 + "<td>"+ cl.get("state")+"</td>"
                                 + "<td>"+ cl.get("city")+"</td>"
@@ -137,8 +143,6 @@
                                 + "<td>"+ cl.get("phone")+"</td>"
                                 + "<td>"+ cl.get("email")+"</td>"
                                 + "<td>"+ cl.get("birth_date")+"</td>");
-                        
-                     //}
                     out.print("</tr>");
                 }
             %>
@@ -222,7 +226,6 @@
                 </section>
         
         <script>
-            documents.getElemntById("but").textContent="editar";
         </script>
     </body>
 </html>

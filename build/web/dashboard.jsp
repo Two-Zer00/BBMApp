@@ -55,7 +55,6 @@
                             <c:redirect url="dashboard.jsp"/>
                         </div>
             </c:when>
-            
             <c:when test="${requestScope.successup==true}">
                 <div class="notification">
                     <c:import url="/partials/notifications/updatingclient.html"/>
@@ -84,7 +83,7 @@
             if(request.getSession().getAttribute("clientOb")!=null){
                 client = (JSONObject)request.getSession().getAttribute("clientOb");
                 name = client.get("name")+ " " + client.get("last_name");
-                out.print("<div class=\"user\"><a id=\"title\" href=\"javascript:void(0)\" onClick=\"options()\" >Hola "+name+"<span id=\"triangle\">&#9650;</span></a>");
+                out.print("<div class=\"container-lg\"><h1 class='fw-bold'>Hola "+name+"</h1></div>");
                 if(client.get("role").equals("user")){
                     pageContext.setAttribute("userC", true);
                 }
@@ -97,361 +96,201 @@
                 response.sendRedirect("index.jsp");
             }
         %>
-            <c:choose>
-            <c:when test="${adminC}">
-                <ul id="menu" class="menuD">
-                    <li><a href="clientRegister.jsp">Alta de cliente</a></li>
-                    <li><a href="accountRegister.jsp">Alta de cuenta</a></li>
-                    <li><a href="clientList.jsp">Lista de clientes</a></li>
-                    <li><a href="transfers.jsp">Transferencias</a></li>
-                    <li><a href="transferList.jsp">Lista de transferencias</a></li>
-                    <li><a href="accountDetail.jsp">Detalles de la cuenta</a></li>
-                </ul>
-            </c:when>
-            <c:when test="${userC}">
-                <ul id="menu" class="menuD">
-                    <li><a href="transfers.jsp">Transferencias</a></li>
-                    <li><a href="transferList.jsp">Lista de transferencias</a></li>
-                    <li><a href="accountDetail.jsp">Detalles de la cuenta</a></li>
-                </ul>
-            </c:when>
-        </c:choose>
+<%--            <c:choose>--%>
+<%--            <c:when test="${adminC}">--%>
+<%--                <ul id="menu" class="menuD">--%>
+<%--                    <li><a href="clientRegister.jsp">Alta de cliente</a></li>--%>
+<%--                    <li><a href="accountRegister.jsp">Alta de cuenta</a></li>--%>
+<%--                    <li><a href="clientList.jsp">Lista de clientes</a></li>--%>
+<%--                    <li><a href="transfers.jsp">Transferencias</a></li>--%>
+<%--                    <li><a href="transferList.jsp">Lista de transferencias</a></li>--%>
+<%--                    <li><a href="accountDetail.jsp">Detalles de la cuenta</a></li>--%>
+<%--                </ul>--%>
+<%--            </c:when>--%>
+<%--            <c:when test="${userC}">--%>
+<%--                <div id="menu" class="menuD">--%>
+<%--                    <a href="transfers.jsp">Transferencias</a>--%>
+<%--                    <a href="transferList.jsp">Lista de transferencias</a>--%>
+<%--                    <a href="accountDetail.jsp">Detalles de la cuenta</a>--%>
+<%--                </div>--%>
+<%--            </c:when>--%>
+<%--        </c:choose>--%>
         </div>
         
-        <div class="headerDashboard">
-            <section>
-                <%
-                    jsonHandler.setMainpath(getServletContext().getRealPath("/json"));
-                    val = new isClient();
-                    JSONObject account = (JSONObject) val.accounts(client.get("client_number").toString(), "").get(0);
-                    out.print("<h1>Balance en la cuenta "+ account.get("account_number") +"</h1>");
-                    out.print("<h2>$ "+account.get("amount")+" MXN</h2>");
-                %>
-            </section>
-        </div>
-        
-        <div class="dateSelector" style="width: 80%; margin:auto;">
-            <%
-                Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
-                Calendar cal = Calendar.getInstance();
-                int month = cal.get(Calendar.MONTH); // 5
-                pageContext.setAttribute("month", month);
-                DateFormatSymbols dts = new DateFormatSymbols();
-            %>
-            <h1>Seleccione el mes a revisar</h1>
-            <label for="transfers">Mes</label>
-            <select name="transerfs" id="transfers" onChange="chart(this.value)">
-                <c:forEach var="i" begin="0" end="${month}" step="1">
+
+
+        <div class="container-lg">
+
+            <div class="border">
+                    <%
+                        jsonHandler.setMainpath(request.getServletContext().getRealPath("/json"));
+                        val = new isClient();
+                        //JSONObject account = (JSONObject) val.accounts(client.get("client_number").toString(), "").get(0);
+
+                        JSONArray accounts = (JSONArray) val.accounts(client.get("client_number").toString(), "");
+                        //JSONObject account = (JSONObject) val.accounts(client.get("client_number").toString(), "").get(0);
+                        for(int i =0; i<accounts.size();i++){
+                            JSONObject account = (JSONObject) accounts.get(i);
+                            out.print("<div class='border rounded d-inline-block p-1 m-2'><p class='fw-bold '>Balance en No. de cuenta <a href='javascript:void(0)' onclick='updateAccount(\""+account.get("account_number")+"\")'>"+ account.get("account_number") +"</a></p>");
+                            out.print("<p class='fw-bold m-0'>$ "+account.get("amount")+" MXN</p></div>");
+                        }
+                    %>
+            </div>
+            <div class="row mx-0 mt-2 mb-2">
+                <div class="col-4 ps-0 pe-0 me-2 border">
+                    <div class="list-group list-group-flush">
                     <c:choose>
-                        <c:when test="${i==month}">
-                            <option value="${i}" selected><% out.print(dts.getMonths()[(int)pageContext.getAttribute("i")]); %></option>
+                        <c:when test="${adminC}">
+                            <a class="list-group-item list-group-item-action " href="clientRegister.jsp">Alta de cliente</a>
+                            <a class="list-group-item list-group-item-action " href="accountRegister.jsp">Alta de cuenta</a>
+                            <a class="list-group-item list-group-item-action " href="clientList.jsp">Lista de clientes</a>
+                            <a class="list-group-item list-group-item-action " href="transfers.jsp">Transferencias</a>
+                            <a class="list-group-item list-group-item-action " href="transferList.jsp">Lista de transferencias</a>
+                            <a class="list-group-item list-group-item-action " href="accountDetail.jsp">Detalles de la cuenta</a>
                         </c:when>
-                        <c:otherwise>
-                            <option value="${i}"><% out.print(dts.getMonths()[(int)pageContext.getAttribute("i")]); %></option>
-                        </c:otherwise>
+                        <c:when test="${userC}">
+                                <a class="list-group-item list-group-item-action" href="transfers.jsp">Transferencias</a>
+                                <a class="list-group-item list-group-item-action" href="transferList.jsp">Lista de transferencias</a>
+                                <a class="list-group-item list-group-item-action" href="accountDetail.jsp">Detalles de la cuenta</a>
+                        </c:when>
                     </c:choose>
-                </c:forEach>
-            </select>
+                    </div>
+                </div>
+                <div class="col ps-0 pe-0 border">
+                    <div class="row">
+                        <div class="col-4 d-flex justify-content-center">
+                            <div class="text-center m-2">
+                                <%
+                                    Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
+                                    Calendar cal = Calendar.getInstance();
+                                    int month = cal.get(Calendar.MONTH); // 5
+                                    pageContext.setAttribute("month", month);
+                                    DateFormatSymbols dts = new DateFormatSymbols();
+                                %>
+                                <p>Seleccione el mes a revisar</p>
+                                <label for="transfers">Mes</label>
+                                <select name="transerfs" id="transfers" onChange="chartA(this.value)">
+                                    <c:forEach var="i" begin="0" end="${month}" step="1">
+                                        <c:choose>
+                                            <c:when test="${i==month}">
+                                                <option value="${i}" selected><% out.print(dts.getMonths()[(int)pageContext.getAttribute("i")]); %></option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${i}"><% out.print(dts.getMonths()[(int)pageContext.getAttribute("i")]); %></option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div id="graphContainer" class="position-relative p-3">
+                                <div class="position-absolute top-50 start-50 translate-middle">
+                                    <div class="spinner-border text-primary" id="spinner" style="width: 10rem; height: 10rem;" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-        <div class="graphContainer" >
-        <div class="loader" id="loader"></div> 
-        <div class="graph"><canvas id="myChart"></canvas></div>
-        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
         <script>
+            var ctx = document.getElementById('myChart');
             var today = new Date();
             var days = [];
-            chart(today.getMonth());
-            
-            function daysGenerator(n){
-                console.log("Generador de dias " + n);
-                days = [];
-                for (var i=1;i<32;i++){
-                if(i!==n){
-                    days.push(i);
-                    
-                    console.log(n);
-                }
-                else{
-                    days.push(i);
-                    break;
-                }
-                }
-                console.log("Dias "+days.toString());
+            var myChart;
+            let selectDate = document.getElementById('transfers').value;
+            //let loader = document.getElementById('loader');
+            let accN = ""+<% out.print("\""+((JSONObject)accounts.get(0)).get("account_number")+"\"");%> ;
+            chartA(selectDate || today.getMonth());
+            function updateAccount(accountNumber){
+                accN = accountNumber;
+                chartA(selectDate || today.getMonth(),accN);
             }
-            
-            function chart(month){
-                document.getElementById("loader").style.display="block";
-                console.log("-----------------------------");
-                console.log("Grafica para el mes " + month );
-                //daysGenerator();
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                        document.getElementById("loader").style.display="none";
-                        var myObj = JSON.parse(this.responseText);
-                        var total=0;
-                        console.log("GENERANDO LAS TRANFERENCIAS HECHAS");
-                        var tempObj = myObj.hechas;
-                        var ammonts=[];
-                        if(tempObj.toString()===""){
-                            console.log("NULO");
-                            for(var i=1;i<32;i++){
-                                ammonts.push(0);
-                            }
-                        }
-                        else{
-                        for(var i=0;i<tempObj.length;i++){
-                            var temp = tempObj[i];
-                            var date = temp.date;
-                            //console.log("TODAY"+today.getMonth());
-                            var newdate = date.split("-").reverse().join("-");
-                            var dateT = new Date(newdate);
-                            console.log(dateT.getDate());
-                            //console.log("----"+month + " y " +dateT.getMonth());
-                            if(parseInt(month)===dateT.getMonth()){
-                                daysGenerator(parseInt(dateT.getDate())+1);
-                                //console.log(dateT + " " +temp.amount);
-                                ammonts=[];
-                                for(var o=1;o<32;o++){
-                                    if(o!==dateT.getDate()+1){
-                                        //days.push(o);
-                                        console.log("no entra en el dia" + days[o]);
-                                        ammonts.push(0);
-                                    }
-                                    else{
-                                        //days.push(o);
-                                        console.log("entro en el dia " + days[o]);
-                                        total+=parseInt(temp.amount);
-                                        
-                                        break;
-                                    }
 
-                                }
-                                console.log(total +" "+ ammonts.length);
-                                ammonts.push(total);
-                            }
-                            else{
-                                console.log("NO COINCIDE");
-                            }
-
-                        }
-                    }
-                        /* RECIBIDAS */
-                        console.log("GENERANDO LAS TRANFERENCIAS RECIBIDAS");
-                        var tempObj = myObj.recibidas;
-                        var ammonts1=[];
-                        if(tempObj.toString()===""){
-                            console.log("NULO");
-                            for(var i=1;i<32;i++){
-                                ammonts1.push(0);
-                            }
-                        }
-                        else{
-                        for(var i=0;i<tempObj.length;i++){
-                            var temp = tempObj[i];
-                            var date = temp.date;
-                            //console.log("TODAY"+today.getMonth());
-                            var newdate = date.split("-").reverse().join("-");
-                            var dateT = new Date(newdate);
-                            console.log(dateT.getDate());
-                            //console.log("----"+month + " y " +dateT.getMonth());
-                            if(parseInt(month)===dateT.getMonth()){
-                                daysGenerator(parseInt(dateT.getDate())+1);
-                                //console.log(dateT + " " +temp.amount);
-                                ammonts1=[];
-                                for(var o=1;o<32;o++){
-                                    if(o!==dateT.getDate()+1){
-                                        //days.push(o);
-                                        console.log("no entra en el dia" + days[o]);
-                                        ammonts1.push(0);
-                                    }
-                                    else{
-                                        //days.push(o);
-                                        console.log("entro en el dia " + days[o]);
-                                        total+=parseInt(temp.amount);
-                                        
-                                        break;
-                                    }
-
-                                }
-                                console.log(total +" "+ ammonts1.length);
-                                ammonts1.push(total);
-                            }
-                            else{
-                                console.log("NO COINCIDE");
-                            }
-
-                        }
-                        }
-                        console.log(days.toString());
-                        
-                        var chart = new Chart(ctx, {
-                        // The type of chart we want to create
-                        type: 'line',
-
-                        // The data for our dataset
-                        data: {
-                            labels: days,
-                            datasets: [{
-                                label: 'Monto total de las tranferencias realizadas en el mes',
-                                borderColor: 'rgb(255,5,5)',
-                                data: ammonts
-                            },{
-                                label: 'Monto total de las tranferencias recibidas en el mes',
-                                borderColor: 'rgb(9,79,164)',
-                                data: ammonts1
-                            }]
-                        
-                        },
-
-                        // Configuration options go here
-                        options: {}
-                        });
-                    }
-            
-    
-                };
-                xmlhttp.open("GET", "trasferSv", true);
-                xmlhttp.send();
-                var ctx = document.getElementById('myChart').getContext('2d');
+            function chartA(month,accountNumber){
+                document.getElementById("spinner").classList.remove("d-none");
+                if(accountNumber){
+                    accN = accountNumber;
+                }
+                fetch('transfer.do?month='+month+'&accountNumber='+accN)
+                    .then(response => response.json())
+                    .then(data => {
+                        loadChart(data, month);
+                    });
             }
-            
-            
-            function generateNumber(json){
-                for(var i=0;i<tempObj.length;i++){
-                            var temp = tempObj[i];
-                            var date = temp.date;
-                            //console.log("TODAY"+today.getMonth());
-                            var newdate = date.split("-").reverse().join("-");
-                            var dateT = new Date(newdate);
-                            console.log(dateT.getDate());
-                            //console.log("----"+month + " y " +dateT.getMonth());
-                            if(parseInt(month)===dateT.getMonth()){
-                                daysGenerator(parseInt(dateT.getDate())+1);
-                                //console.log(dateT + " " +temp.amount);
-                                var ammonts=[];
-                                for(var o=1;o<32;o++){
-                                    if(o!==dateT.getDate()+1){
-                                        //days.push(o);
-                                        console.log("no entra en el dia" + days[o]);
-                                        ammonts.push(0);
-                                    }
-                                    else{
-                                        //days.push(o);
-                                        console.log("entro en el dia " + days[o]);
-                                        total+=parseInt(temp.amount);
-                                        
-                                        break;
-                                    }
 
-                                }
-                                console.log(total +" "+ ammonts.length);
-                                ammonts.push(total);
-                            }
-                            else{
-                                console.log("NO COINCIDE");
-                            }
-
-                        }
+            function updateData(chart,newData) {
+                chart.data.datasets[0].data = newData;
+                chart.update();
+                document.getElementById("spinner").classList.add("d-none");
             }
-            
-            /*
-            
-            //var today = new date();
-            var ammont=0;
-            
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-              if (this.readyState === 4 && this.status === 200) {
-                var myObj = JSON.parse(this.responseText);
-                
-                //document.getElementById("demo").innerHTML =
-                // ;
-                var total=0;
-                for(var i=0;i<myObj.length;i++){
-                    var temp = myObj[i];
-                    var date = temp.date;
-                    //console.log(date);
-                    var newdate = date.split("-").reverse().join("-");
-                    var dateT = new Date(Date.parse(newdate));
-                    if(today.getMonth()===dateT.getMonth()){
-                        console.log(dateT + " " +temp.amount);
-                        var ammonts=[];
-                        for(var o=0;o<31;o++){
-                            if(o!==dateT.getDate()){
-                                console.log("no entra");
-                                ammonts.push(0);
-                            }
-                            else{
-                                console.log("entro");
-                                total+=parseInt(temp.amount);
-                                break;
-                            }
-                            
-                        }
-                        console.log(total + ammonts.length);
-                        ammonts.push(total);
-                    }
-                    
-                }
-                /*
-                ammont = myObj[0].amount;
-                
-                var date = myObj[1].date;
-                var newdate = date.split("-").reverse().join("-");
-                var dateT = new Date(Date.parse(newdate));
-                console.log(dateT);
-                for(var i=0;i<31;i++){
-                    if(i!==dateT.getDate()){
-                        ammonts.push(0);
-                    }
-                    else{
-                        ammonts.push(myObj[1].amount);
-                    }
-                }
-                
-                var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'line',
 
-                // The data for our dataset
-                data: {
-                    labels: days,
-                    datasets: [{
-                        label: 'Monto total de las tranferencias realizadas en el mes',
-                        borderColor: 'rgb(9,79,164)',
-                        data: ammonts
-                    }]
-                },
-
-                // Configuration options go here
-                options: {}
-            });
-                
-              }
-            };
-            xmlhttp.open("GET", "trasferSv", true);
-            //console.log(ammont);
-            xmlhttp.send();
-            var d= new Date();
-            //var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-            /*var days = [];
-            for (var i=1;i<31;i++){
-                if(i!==d.getDate()){
-                    days.push(i);
-                    console.log(d.getDate());
+            function loadChart(data){
+                var hechas = data.hechas;
+                var recibidas = data.recibidas;
+                //console.warn(typeof (hechas),hechas==0,typeof (recibidas),recibidas==0);
+                if(document.getElementById('advise')){
+                    document.getElementById('advise').remove();
                 }
-                else{
-                    days.push(i);
-                    break;
+                if(hechas===0 && recibidas===0 && !document.getElementById('advise')){
+                    console.log('advise');
+                    let advise = document.createElement('div');
+                    advise.id = 'advise';
+                    advise.style.position = 'absolute';
+                    advise.style.top = '50%';
+                    advise.style.left = '50%';
+                    advise.style.transform = 'translate(-50%,-50%)';
+                    advise.textContent = 'No transactions made o received, try other month';
+                    advise.style.textTransform = 'uppercase';
+                    console.log(document.getElementById('graphContainer').appendChild(advise));
+                }
+                if(myChart){
+                    //if(document.getElementById('advise')) document.getElementById('advise').remove();
+                    console.log('updating chart',hechas,recibidas);
+                    updateData(myChart,[hechas,recibidas]);
+                    //loader.style.display = 'none';
+                }else {
+                    ctx = document.getElementById('myChart');
+                    //daysGenerator(parseInt(new Date().getDate()));
+                    //daysGenerator(parseInt(new Date().getDate()));
+                    const dataA = {
+                        labels: [
+                            'Hechas',
+                            'Recibidas',
+                        ],
+                        datasets: [{
+                            label: 'Transacciones realizadas y recibidas(Montos totales)',
+                            data: [hechas, recibidas],
+                            backgroundColor: [
+                                'rgb(9,79,164)',
+                                'rgb(33,151,238)'
+                            ],
+                            borderColor:'rgba(121,121,121,0)',
+                            spacing:1,
+                            hoverOffset: 4
+                        }]
+                    };
+                    const config = {
+                        type: 'doughnut',
+                        data: dataA,
+                        options:
+                            {
+                                responsive: true,
+                                maintainAspectRatio:true
+                            }
+                    };
+                    myChart = new Chart(ctx, config);
+                    //loader.style.display = 'none';
+                    document.getElementById("spinner").classList.add("d-none");
                 }
             }
-            //console.log(ammont);
-            var cant =100;*/
-            var ctx = document.getElementById('myChart').getContext('2d');
-            
             </script>
     </body>
     <script>
@@ -461,18 +300,16 @@
             var option = document.getElementById("menu");
             var trangle = document.getElementById("trangle");
             if(option.classList.contains('menu')){
-                    option.className="menuD";
-                    triangle.innerHTML="&#9650;";
-                    option.style.display="none";
+                option.className="menuD";
+                triangle.innerHTML="&#9650;";
+                option.style.display="none";
                     
-                    
-                }
-                else{
-                    option.className="menu";
-                    triangle.innerHTML="&#9660;";
-                    option.style.display="block";
-                    
-                }
+            }
+            else{
+                option.className="menu";
+                triangle.innerHTML="&#9660;";
+                option.style.display="block";
+            }
             
         }
     </script>

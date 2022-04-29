@@ -1,1 +1,2 @@
-[{"client_number":"12345","date":"2019-03-22","account_number":"01234","amount":"11950.0","type":"debito"},{"client_number":"00002","date":"2019-03-30","account_number":"00002","amount":"998100.0","type":"debito"}]
+[{"amount":"10550.0","account_number":"01234","client_number":"12345","type":"debito","date":"2019-03-22"},
+    {"amount":"999500.0","account_number":"00002","client_number":"00002","date":"2019-03-30","type":"debito"}]
