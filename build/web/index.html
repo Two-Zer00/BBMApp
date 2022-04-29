@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Inicio</title>
+        <title>Banco Mercantíl de México - Inicio</title>
         <meta charset="UTF-8">
         <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon" />
         <link href="css/styles.css" rel="stylesheet" type="text/css" />
@@ -48,12 +48,12 @@ and open the template in the editor.
             </div>
             <div class="mySlides fade">
                 <div class="numbertext">2 / 3</div>
-                <img src="https://cdn.japantimes.2xx.jp/wp-content/uploads/2018/04/b-bojwomen-a-20180414.jpg" alt="Slider2">
+                <img src="https://orig00.deviantart.net/e78f/f/2014/005/8/1/digital_diagram_business_and_technology_by_prophotostock-d711h32.jpg" alt="Slider2">
                 <div class="text">Caption Text</div>
             </div>
             <div class="mySlides fade">
                 <div class="numbertext">3 / 3</div>
-                <img src="http://www.profesionaliza.com.mx/images/blog/blog-2.jpg" alt="Slider3">
+                <img src="https://investmentjuan01.com/wp-content/uploads/2020/05/austin-distel-EMPZ7yRZoGw-unsplash-scaled.jpg" alt="Slider3">
                 <div class="text">Caption Text</div>
             </div>
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -104,7 +104,7 @@ and open the template in the editor.
         <footer>
             <ul>
                 <li><a href="javascript:void(0)">Terminos y condiciones</a></li>
-                <li><a href="javascript:void(0)">Derechos reservados&COPY;</a></li>
+                <li><a href="javascript:void(0)">&COPY;2019-<span id="year"></span> Derechos reservados</a></li>
                 <li><a href="javascript:void(0)">Aviso de privacidad</a></li>
             </ul>
         </footer>
@@ -158,6 +158,10 @@ and open the template in the editor.
             
         </script>
         
+    <script>
+    const yearElement = document.getElementById("year");
+    yearElement.textContent = new Date().getFullYear();
+    </script>
         
         
         

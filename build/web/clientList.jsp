@@ -1,4 +1,3 @@
-<%@page import="java.nio.charset.StandardCharsets"%>
 ﻿<%-- 
     Document   : clientList
     Created on : 22-mar-2019, 17:15:38
@@ -14,6 +13,7 @@
 <%@page import="java.lang.Math"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.nio.charset.StandardCharsets"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
