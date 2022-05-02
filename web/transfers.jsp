@@ -29,7 +29,7 @@
         
         
         <c:import url="partials/nav.html"/>
-        <section id="transForm">
+        <section id="transForm" class="container">
             <h2>Transferencias</h2>
         <form method="post" action="transfer.do">
             <table>

@@ -137,7 +137,7 @@
                     %>
             </div>
             <div class="row mx-0 mt-2 mb-2">
-                <div class="col-4 ps-0 pe-0 me-2 border">
+                <div class="col-lg-4 ps-0 pe-0 me-2 border">
                     <div class="list-group list-group-flush">
                     <c:choose>
                         <c:when test="${adminC}">
@@ -156,9 +156,9 @@
                     </c:choose>
                     </div>
                 </div>
-                <div class="col ps-0 pe-0 border">
+                <div class="col-sm ps-0 pe-0 border">
                     <div class="row">
-                        <div class="col-4 d-flex justify-content-center">
+                        <div class="col-md-4 d-flex justify-content-center">
                             <div class="text-center m-2">
                                 <%
                                     Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
@@ -183,9 +183,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-8">
-                            <div id="graphContainer" class="position-relative p-3">
-                                <div class="position-absolute top-50 start-50 translate-middle">
+                        <div class="col-md-8">
+                            <div id="graphContainer" class="d-flex justify-content-center align-items-center w-100 h-100">
+                                <div class="">
                                     <div class="spinner-border text-primary" id="spinner" style="width: 10rem; height: 10rem;" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
