@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.twozer00</groupId>
     <artifactId>banco-mercantil-de-mexico</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>banco-mercantil-de-mexico</name>
     <version>0.0.1-SNAPSHOT</version>
     <build>
