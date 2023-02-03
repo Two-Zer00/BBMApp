@@ -125,7 +125,7 @@
                 <isset property="browser.context"/>
             </and>
         </condition>
-        <available file="${conf.dir}/MANIFEST.MF" property="has.custom.manifest"/>
+        <available file="../src/main/webapp/MANIFEST.MF" property="has.custom.manifest"/>
         <available file="${persistence.xml.dir}/persistence.xml" property="has.persistence.xml"/>
         <condition property="do.war.package.with.custom.manifest">
             <isset property="has.custom.manifest"/>
